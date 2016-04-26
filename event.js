@@ -16,6 +16,11 @@ var MainEventHandler = function main(){
 		eventEmitter.emit("data_received");
 	}
 	eventEmitter.on("data_received", function(){
+		console.log("开始接收数据");
+		var eventListeners = require("events").EventEmitter.listenerCount(eventEmitter,"data_received");
+		console.log(eventListeners+"个监听器监听数据接收事件");
+	});
+	eventEmitter.addListener("data_received",function(){
 		console.log("数据接收成功");
 	});
 	eventEmitter.on("connection", connectHandler);
