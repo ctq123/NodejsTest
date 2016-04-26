@@ -1,1 +1,13 @@
-"nodejs��һ������javascript,������Ӧ����������չ������Ӧ��"
+//nodejs定义
+1、nodejs是什么？
+nodejs是一个基于javascript便于搭建快速，易于扩展的网络应用
+
+//nodejs优势
+为什么使用nodejs？
+1）nodejs是单线程应用,是异步编程，通过线程的事件和回调函数实现高并发请求，因此快速响应请求是nodejs的一大优势
+//a.nodejs基本所有的事件机制都是用设计模式中的观察者模式实现的
+//b.nodejs单线程类似进入while(true)的事件循环，直到没有事件观察者才退出
+//c.事件相当于主题(subject),所有注册在这个事件的处理函数相当于观察者(observer)
+//d.nodejs采用事件驱动模型，当server接收到请求，就把它关闭然后进行处理，然后去服务下一个web请求
+
+2）nodejs是轻量级的应用，通过引入各种模块实现易于扩展，便于开发

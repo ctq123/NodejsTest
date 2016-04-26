@@ -4,6 +4,7 @@
 //step 4:触发事件
 //注意nodejs是javascript语法，是非编译语言（顺序问题）
 
+
 /**
  * 主事件
  * [MainEventHandler description]
