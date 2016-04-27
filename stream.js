@@ -64,8 +64,8 @@ function PipeStreamHandler(input_filename,output_filename){
 }
 
 console.log("=======start=======");
-WriteStreamHandler("input.txt");
-PipeStreamHandler("input.txt","output.txt");
+// WriteStreamHandler("input.txt");
+// PipeStreamHandler("input.txt","output.txt");
 // ReadStreamHandler("input.txt");
 ReadStreamHandler("output.txt");
 console.log("========end========");
