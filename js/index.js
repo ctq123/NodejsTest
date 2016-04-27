@@ -1,6 +1,8 @@
 /**
  * nodejs 路由
  * 解析路由
+ * 访问http://127.0.0.1:8888/getuser?user=123
+ * 
  * 传递一个函数route作为参数入routerServer
  * @type {[type]}
  */
