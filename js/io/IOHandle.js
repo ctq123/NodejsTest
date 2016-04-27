@@ -1,7 +1,8 @@
+//进入js目录使用node stream命令 url="../txt/test.txt"
 // console.log("start");
-// BlockIOHandler("txt/test.txt");
+// BlockIOHandler("../txt/test.txt");
 // console.log("\n");
-// UnBlockIOHandler("txt/test.txt");
+// UnBlockIOHandler("../txt/test.txt");
 // console.log("end");
 
 /**

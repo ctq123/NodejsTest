@@ -63,9 +63,10 @@ function PipeStreamHandler(input_filename,output_filename){
 	readerStream.pipe(writerStream);
 }
 
+//进入js目录使用node stream命令 url="../txt/test.txt"
 console.log("=======start=======");
-// WriteStreamHandler("input.txt");
-// PipeStreamHandler("input.txt","output.txt");
-// ReadStreamHandler("input.txt");
-ReadStreamHandler("output.txt");
+// WriteStreamHandler("../txt/input.txt");
+// PipeStreamHandler("../txt/input.txt","../txt/output.txt");
+// ReadStreamHandler("../txt/input.txt");
+ReadStreamHandler("../txt/output.txt");
 console.log("========end========");

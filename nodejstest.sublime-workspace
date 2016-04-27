@@ -3,15 +3,81 @@
 	{
 		"selected_items":
 		[
+			[
+				"set",
+				"set_filename"
+			],
+			[
+				"output",
+				"output_filename"
+			],
+			[
+				"c",
+				"createWriteStream"
+			],
+			[
+				"cr",
+				"createReadStream"
+			],
+			[
+				"read",
+				"readerStream"
+			],
+			[
+				"write",
+				"writerStream"
+			],
+			[
+				"err",
+				"error"
+			],
+			[
+				"conn",
+				"connectHandler"
+			],
+			[
+				"ev",
+				"eventEmitter"
+			]
 		]
 	},
 	"buffers":
 	[
 		{
+			"contents": "/**\n * nodejs 应用的组成\n * 模拟一个服务器请求\n */\n\n//step 1:引入required模块\nvar http = require(\"http\");\n\n//step 2:创建服务器\nhttp.createServer(\n	//step 3:接收请求与响应请求\n	function(require,response){\n		//发送 HTTP 头部\n		//HTTP 状态 200：ok\n		//内容类型：text/plain\n		response.writeHead(200,{\"Content-Type\":'text/plain'});\n\n		//发送响应数据“Hello World”\n		response.end(\"Hello World\\n\");\n	}\n	).listen(8888);\n\n//终端打印如下信息\nconsole.log(\"Server running at http://127.0.0.1:8888/\");",
 			"file": "server.js",
+			"file_size": 572,
+			"file_write_time": 131060628722250188,
 			"settings":
 			{
 				"buffer_size": 429,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "io/IOHandle.js",
+			"settings":
+			{
+				"buffer_size": 1032,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "/**\n * 流Stream有四种类型：\n * 1）Readable-可读操作\n * 2）Writable-可写操作\n * 3）Duplex-双层可读可写操作\n * 4）Transform-写入后读取出来\n *\n * 所有Stream对象都为EventEmitter实例,常用处理流事件\n * data-有数据可读时触发\n * end-没有数据可读时触发\n * finish-没有数据可写时触发\n * error-出现错误时触发\n */\n\nvar fs = require(\"fs\");\n\nfunction ReadStreamHandler(filename){\n	var data = \"\";\n	var readerStream = fs.createReadStream(filename);\n	//设置编码\n	readerStream.setEncoding(\"utf-8\");\n	//处理流事件->data,end,error\n	readerStream.on(\"data\",function(chunk){\n		console.log(\"start to read data of \"+filename);\n		data += chunk;\n	});\n	readerStream.on(\"end\",function(){\n		console.log(data);\n		console.log(\"end to read data of \"+filename);\n	});\n	readerStream.on(\"error\",function(err){\n		console.error(err.stack);\n	});\n};\n\nfunction WriteStreamHandler(filename){\n	var data = \"所有Stream的对象都是EventEmitter实例\";\n	var writerStream = fs.createWriteStream(filename);\n	//设置写入编码\n	writerStream.write(data,\"utf-8\");\n	//标志文件末尾\n	writerStream.end();\n	//处理流事件->finish,error\n	writerStream.on(\"finish\",function(){\n		console.log(\"finish to write \"+filename);\n	});\n	writerStream.on(\"error\",function(err){\n		console.error(err.stack);\n	});\n};\n\n/**\n * 管道流读写操作\n * @param {[type]} input  [description]\n * @param {[type]} output [description]\n */\nfunction PipeStreamHandler(input_filename,output_filename){\n	//创建可读流\n	var readerStream = fs.createReadStream(input_filename);\n	//创建可写流\n	var writerStream = fs.createWriteStream(output_filename);\n	//管道流读写操作\n	readerStream.pipe(writerStream);\n}\n\nconsole.log(\"=======start=======\");\n// WriteStreamHandler(\"input.txt\");\n// PipeStreamHandler(\"input.txt\",\"output.txt\");\n// ReadStreamHandler(\"input.txt\");\nReadStreamHandler(\"output.txt\");\nconsole.log(\"========end========\");\n",
+			"file": "stream.js",
+			"file_size": 2033,
+			"file_write_time": 131062192469020606,
+			"settings":
+			{
+				"buffer_size": 1680,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Require/Require.js",
+			"settings":
+			{
+				"buffer_size": 407,
 				"line_ending": "Windows"
 			}
 		}
@@ -48,11 +114,17 @@
 	},
 	"file_history":
 	[
+		"/E/SublimeTextProject/NodejsTest/event.js",
+		"/E/SublimeTextProject/NodejsTest/IOHandle.js",
+		"/E/SublimeTextProject/NodejsTest/Require.js",
+		"/E/SublimeTextProject/NodejsTest/output.txt",
+		"/E/SublimeTextProject/NodejsTest/input.txt",
+		"/E/SublimeTextProject/NodejsTest/test.txt",
 		"/C/Program Files/Sublime Text 3/Data/Packages/User/Preferences.sublime-settings"
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 30.0
 	},
 	"find_in_files":
 	{
@@ -66,6 +138,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"UnBlockIOHandler"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -83,7 +156,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -99,8 +172,8 @@
 						"selection":
 						[
 							[
-								86,
-								86
+								402,
+								402
 							]
 						],
 						"settings":
@@ -166,11 +239,273 @@
 							],
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
 						},
-						"translation.x": -0.0,
-						"translation.y": 44.0,
+						"translation.x": 0.0,
+						"translation.y": 242.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "io/IOHandle.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1032,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1032,
+								1032
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 792.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "stream.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1680,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1568,
+								1568
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1254.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Require/Require.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 407,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								147,
+								147
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -178,7 +513,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 30.0
 	},
 	"input":
 	{
@@ -215,7 +550,7 @@
 	"project": "nodejstest.sublime-project",
 	"replace":
 	{
-		"height": 0.0
+		"height": 56.0
 	},
 	"save_all_on_build": true,
 	"select_file":

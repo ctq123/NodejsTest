@@ -10,8 +10,9 @@
  * 4）加载原生模块，并缓存原声模块，直接返回
  * 5）查询文件模块，载入文件模块，缓存文件模块，直接返回
  */
+//进入js目录使用node Require命令 url="../txt/test.txt"
 
 var exportsIOHandle = require("../io/IOHandle.js");
 iohandle = new exportsIOHandle();
-iohandle.unBlockIOHandler("txt/test.txt");
-// iohandle.blockIOHandler("txt/test.txt");
+iohandle.unBlockIOHandler("../txt/test.txt");
+// iohandle.blockIOHandler("../txt/test.txt");

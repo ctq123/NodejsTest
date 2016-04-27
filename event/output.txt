@@ -1,1 +1,0 @@
-所有Stream的对象都是EventEmitter实例
