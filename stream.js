@@ -21,12 +21,12 @@ function ReadStreamHandler(filename){
 	readerStream.setEncoding("utf-8");
 	//处理流事件->data,end,error
 	readerStream.on("data",function(chunk){
-		console.log("start to read data");
+		console.log("start to read data of "+filename);
 		data += chunk;
 	});
 	readerStream.on("end",function(){
 		console.log(data);
-		console.log("end to read data");
+		console.log("end to read data of "+filename);
 	});
 	readerStream.on("error",function(err){
 		console.error(err.stack);
@@ -34,7 +34,7 @@ function ReadStreamHandler(filename){
 };
 
 function WriteStreamHandler(filename){
-	var data = "\n所有Stream的对象都是EventEmitter实例";
+	var data = "所有Stream的对象都是EventEmitter实例";
 	var writerStream = fs.createWriteStream(filename);
 	//设置写入编码
 	writerStream.write(data,"utf-8");
@@ -42,7 +42,7 @@ function WriteStreamHandler(filename){
 	writerStream.end();
 	//处理流事件->finish,error
 	writerStream.on("finish",function(){
-		console.log("finish to write");
+		console.log("finish to write "+filename);
 	});
 	writerStream.on("error",function(err){
 		console.error(err.stack);
@@ -64,7 +64,8 @@ function PipeStreamHandler(input_filename,output_filename){
 }
 
 console.log("=======start=======");
-// WriteStreamHandler("input.txt");
+WriteStreamHandler("input.txt");
 PipeStreamHandler("input.txt","output.txt");
-ReadStreamHandler("input.txt");
+// ReadStreamHandler("input.txt");
+ReadStreamHandler("output.txt");
 console.log("========end========");
