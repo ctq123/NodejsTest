@@ -28,3 +28,4 @@ function start(route){
 }
 
 exports.start = start;
+// console.log("当前文件的绝对路径为："+__filename);
