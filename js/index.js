@@ -7,10 +7,10 @@
  * @type {[type]}
  */
 
-//输出当前文件的绝对路径的文件名
-console.log("当前文件的绝对路径为："+__filename);
-//输出当前执行脚本所在目录
-console.log("当前执行脚本所在目录："+__dirname);
+// //输出当前文件的绝对路径的文件名
+// console.log("当前文件的绝对路径为："+__filename);
+// //输出当前执行脚本所在目录
+// console.log("当前执行脚本所在目录："+__dirname);
 
 function routeTest(){
 	var routerServer = require("../js/server/routerServer.js");
@@ -26,7 +26,15 @@ function timeoutTest(){
 	// timeout.clearTimeoutHandler();
 }
 
+function utilTest(){
+	// var inherits = require("./util/inherits.js");
+	// inherits.main();
+	var inspect = require("./util/inspect.js");
+	inspect.main();
+}
+
 // routeTest();
-timeoutTest();
+// timeoutTest();
+utilTest();
 
 
