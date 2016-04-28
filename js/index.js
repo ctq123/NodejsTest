@@ -13,14 +13,14 @@
 // console.log("当前执行脚本所在目录："+__dirname);
 
 function routeTest(){
-	var routerServer = require("../js/server/routerServer.js");
-	var router = require("../js/router/router.js");
+	var routerServer = require("./server/routerServer.js");
+	var router = require("./router/router.js");
 
 	routerServer.start(router.route);
 }
 
 function timeoutTest(){
-	var timeout = require("../js/timeout/timeout.js");
+	var timeout = require("./timeout/timeout.js");
 	timeout.setIntervalHandler();
 	// timeout.setTimeoutHandler();
 	// timeout.clearTimeoutHandler();
@@ -33,8 +33,23 @@ function utilTest(){
 	inspect.main();
 }
 
+function serverTest(){
+	var server = require("./server/server.js");
+	server.main();
+}
+
+function clientTest(){
+	//先启动server
+	serverTest();
+	//启动client发起请求
+	var client = require("./client/client.js");
+	client.main();
+}
+
 // routeTest();
 // timeoutTest();
-utilTest();
+// utilTest();
+// serverTest();
+clientTest();
 
 

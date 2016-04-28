@@ -1,24 +1,35 @@
 /**
- * nodejs 应用的组成
- * 模拟一个服务器请求
+ * 服务器接收请求和响应请求
  */
 
-//step 1:引入required模块
 var http = require("http");
+var url = require("url");
+var fs = require("fs");
 
-//step 2:创建服务器
-http.createServer(
-	//step 3:接收请求与响应请求
-	function(require,response){
-		//发送 HTTP 头部
-		//HTTP 状态 200：ok
-		//内容类型：text/plain
-		response.writeHead(200,{"Content-Type":'text/plain'});
+var htmlfolder = "../html/";
+function onRequest(request, response){
+	var pathname = url.parse(request.url).pathname;
+	console.log("recevied a request =["+ request.url +"] from client. pathname ="+pathname);
+	
+	var filename = htmlfolder + pathname.substr(1, pathname.length);
+	console.log("ready to read file ["+filename+ "]");
 
-		//发送响应数据“Hello World”
-		response.end("Hello World\n");
-	}
-	).listen(8888);
+	fs.readFile(filename, function(err,data){
+		if(err){
+			console.error("reading file "+filename+" error.\n"+err);
+			response.writeHead(404, {"Content-Type":"text/html"});
+		}else{
+			response.writeHead(200, {"Content-Type":"text/html"});
+			//响应内容
+			response.write(data.toString());
+		}
+		response.end();//发送响应
+	});
+}
 
-//终端打印如下信息
-console.log("Server running at http://127.0.0.1:8888/");
+function main(){
+	http.createServer(onRequest).listen(8001);
+	console.log("Server running at http://127.0.0.1:8001/");
+}
+
+exports.main = main;
